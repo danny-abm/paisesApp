@@ -1,0 +1,48 @@
+
+    <h2 class="animate__animated animate__fadeIn">Por Capital</h2>
+    <hr>
+    
+    <div class="row">
+
+        <div class="col">
+            <app-pais-input 
+                (onEnter)="buscar($event)"
+                (onDebounce)="sugerencias( $event )"
+                placeholder="Buscar Capital..."
+            ></app-pais-input>
+            <ul class="list-group" *ngIf="mostrarSugerencias">
+                <li 
+                    class="list-group-item list-group-item-action" 
+                    (click)="buscar(capital.name)"
+                    *ngFor="let capital of capitalesSugeridos" 
+                    
+                >
+                <a [routerLink]="[ '/pais', capital.alpha2Code]">{{capital.name}}</a></li>
+
+                <li 
+                    class="list-group-item list-group-item-action" 
+                    (click)="buscar(termino)"
+
+                    
+                
+                >
+                  Buscar país:   {{termino}}
+                </li>
+            </ul>
+        </div>
+    
+    </div>
+    <hr>
+    <div class="alert alert-danger animate__animated animate__fadeIn" *ngIf="error" else="tabla">
+        No se encontro una capital con el termino {{termino}}
+    </div>
+
+    <div class="row animate__animated animate__fadeIn" #tabla *ngIf="this.capitales.length>0">
+        <div class="col">
+            <app-pais-tabla [paises]="capitales"></app-pais-tabla>
+        </div>
+    </div>
+    
+
+
+
